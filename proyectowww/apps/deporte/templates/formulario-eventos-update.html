@@ -1,0 +1,536 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+
+    <title>ABC Eventos Deportivos</title>
+
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{% static 'css/estilos_dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+
+
+  <body>
+
+    <div id="main-body" style="z-index: -50">
+      
+
+      <!--BARRA LATERAL-->
+     <!--BARRA LATERAL-->
+      <ul id="slide-out" class="side-nav fixed">
+        <li>
+          <div id="encabezado-barra" class="text-white teal darken-2">
+            <div class="row justify-content-center">
+              <div class="col-12 text-center">
+                <img id="avatar-usuario" src="{{usu_rol.foto.url}}">
+                <h5 id="nombre-usuario">{{usu_rol.user.username}}</h5>
+                <h6 id="rol-usuario">{{ usu_rol.rol }}</h6>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!--Botón Inicio-->
+        <li><a id="btn-inicio" class="hvr-sweep-to-right waves-effect waves-light">
+          <i class="material-icons">home</i>Inicio</a>
+        </li>
+
+        <!--Botón Iniciar Sesión-->
+        <li><a id="btn-iniciar-sesion" class="hvr-sweep-to-right waves-effect waves-light oculto">
+          <i class="material-icons">home</i>Iniciar sesión</a></li>
+
+        <!--Botón Mi Información-->
+        <li><a id="btn-mi-info" class="hvr-sweep-to-right waves-effect waves-light">
+          <i class="material-icons">account_circle</i>Mi Información</a>
+        </li>
+
+        <!--Sección Botones Usuarios-->
+        <li id="dropdown-usuarios" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Usuarios
+                <i class="material-icons">face</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-usuario" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_usuario">
+                    <i class="material-icons">person_add</i>Crear Usuario</a></li>
+                  <li><a id="btn-listar-usuarios" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">group</i>Listar Usuarios</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <!--Sección Botones Eventos-->
+        <li id="dropdown-eventos" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Eventos
+                <i class="material-icons">event</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-evento" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_evento">
+                    <i class="material-icons">event_available</i>Crear Evento</a></li>
+                  <li><a id="btn-listar-eventos" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">event_note</i>Listar Eventos</a></li>
+                  <li><a id="btn-dashboard-eventos" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">dashboard</i> Dashboard Eventos</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <!--Sección Botones Actividades-->
+        <li id="dropdown-actividades" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Actividades
+                <i class="material-icons">extension</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-actividad" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_actividad">
+                    <i class="material-icons">add_circle_outline</i>Crear Actividad</a></li>
+                  <li><a id="btn-listar-actividades" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">list</i>Listar Actividades</a></li>
+                  <li><a id="btn-calendario-actividades" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">event</i>Calendario Actividades</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <!--Sección Botones Noticias-->
+        <li id="dropdown-noticias" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Noticias
+                <i class="material-icons">receipt</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-noticia" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_noticia">
+                    <i class="material-icons">library_add</i>Crear Noticia</a></li>
+                  <li><a id="btn-listar-noticias" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">library_books</i>Listar Noticias</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+
+
+        <!--Botón Cerrar Sesión-->
+        <form action="">{% csrf_token %}
+        <li><a id="btn-cerrar-sesion" class="hvr-sweep-to-right waves-effect waves-light" name="cerrarsesion" href="{% url 'deportes:logout' %}">
+          <i class="material-icons">power_settings_new</i>Cerrar sesión</a></li>
+        </form>
+        
+        
+        <!--Botón Volver a Página Principal-->
+        <li><a id="btn-pag-principal" class="hvr-sweep-to-right waves-effect waves-light oculto" href="index.html">
+          <i class="material-icons">arrow_back</i>Página principal</a></li>
+      </ul>
+
+
+
+      <!--CUERPO DEL DASHBOARD-->
+      <div id="main">
+
+        <!--BARRA DE NAVEGACIÓN-->
+        <nav>
+          <div class="nav-wrapper teal darken-2">
+            <a href="#!" class="brand-logo center"><img src="{% static 'img/LogoABC.png' %}" height="60"></a>
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+          </div>
+        </nav>
+                <!--**********LISTAR ACTIVIDADES*********-->
+        <div id="listar-actividades" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Actividades</h2>
+          </div>
+            <div class="teal darken-2">
+            <iframe class="teal darken-2" style="position: absolute; float:left; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-actividades-dashboard/" width=1000></iframe>
+            </div>
+        </div>
+
+        <!--**********CALENDARIO ACTIVIDADES*********-->
+        <div id="calendario-actividades" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Calendario Actividades</h2>
+          </div>
+        </div>
+
+        <!--**********LISTAR NOTICIAS*********-->
+        <div id="listar-noticias" class="container-fluid oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Noticias</h2>
+          </div>
+          <div class="nav-wrapper teal darken-2">
+          <iframe class="nav-wrapper teal darken-2" style="position: absolute; float:left; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-noticia-dashboard/" width=1000></iframe>
+          </div>
+        </div>
+
+        
+        
+        <!--**********INICIO*********-->
+        <div id="inicio" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Inicio</h2>
+          </div>
+        </div>
+
+        <!--**********LISTAR USUARIO*********-->
+        <div id="listar-usuarios" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Usuarios</h2>
+          </div>
+<div class="nav-wrapper teal darken-2">
+<iframe class="nav-wrapper teal darken-2" style="position: absolute; left:257px; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-usuarios-dashboard/" width="1000"></iframe>
+</div>
+        </div>
+
+        <!--**********EDITAR EVENTO*********-->
+        <div id="crear-evento" class="container">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Editar Evento</h2>
+          </div>
+          <div class="row">
+            <form method="POST" name="formularioCrearEvento" class="col s12" onsubmit="return validarFormularioEventos()"  enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row justify-content-center">
+                <div class="col-md-8">
+                  <div id="field-foto-evento" class="file-field input-field">
+                    <div class="btn waves-effect waves-light hvr-wobble-skew">
+                      <span>Foto</span>
+                      <i class="material-icons">add_a_photo</i>
+                      <input name="imagen" type="file">
+                    </div>
+                    <div class="file-path-wrapper">
+                      <input value="{{ver_evento.imagen}}" class="file-path validate" type="text" placeholder="Selecciona una foto para el evento">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">event</i>
+                    <input value="{{ver_evento.titulo}}" id="icon_prefix" name="titulo" type="text" class="validate" required="required">
+                    <label for="icon_prefix">Nombre del evento</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">event</i>
+                    <input value="{{ver_evento.descripcion}}" id="icon_prefix" name="descripcion" type="text" class="validate" required="required">
+                    <label for="icon_prefix">Descripción del evento</label>
+                  </div>
+                </div>
+              </div>
+
+              
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">location_city</i>
+                    <select name="ciudad" id="select-ciudad" >
+                      <option value="" disabled selected>Selecciona una ciudad</option>
+                      <option value="Armenia" {%ifequal ver_evento.ciudad "Armenia" %} selected {%endifequal%} >Armenia</option>
+                      <option value="Barranquilla" {%ifequal ver_evento.ciudad "Barranquilla" %} selected {%endifequal%}>Barranquilla</option>
+                      <option value="Bogotá" {%ifequal ver_evento.ciudad "Bogotá" %} selected {%endifequal%}>Bogotá</option>
+                      <option value="Bucaramanga" {%ifequal ver_evento.ciudad "Bucaramanga" %} selected {%endifequal%}>Bucaramanga</option>
+                      <option value="Buenaventura" {%ifequal ver_evento.ciudad "" %} selected {%endifequal%} >Buenaventura</option>
+                      <option value="Cali" {%ifequal ver_evento.ciudad "Cali" %} selected {%endifequal%}>Cali</option>
+                      <option value="Cartagena" {%ifequal ver_evento.ciudad "Cartagena" %} selected {%endifequal%}>Cartagena</option>
+                      <option value="Córdoba" {%ifequal ver_evento.ciudad "Córdoba" %} selected {%endifequal%}>Córdoba</option>
+                      <option value="Cúcuta" {%ifequal ver_evento.ciudad "Cúcuta" %} selected {%endifequal%}>Cúcuta</option>
+                      <option value="Envigado" {%ifequal ver_evento.ciudad "Envigado" %} selected {%endifequal%}>Envigado</option>
+                      <option value="Ibagué" {%ifequal ver_evento.ciudad "Ibagué" %} selected {%endifequal%}>Ibagué</option>
+                      <option value="Manizales" {%ifequal ver_evento.ciudad "Manizales" %} selected {%endifequal%}>Manizales</option>
+                      <option value="Medellin" {%ifequal ver_evento.ciudad "Medellin" %} selected {%endifequal%}>Medellin</option>
+                      <option value="Montería" {%ifequal ver_evento.ciudad "Montería" %} selected {%endifequal%}>Montería</option>
+                      <option value="Palmira" {%ifequal ver_evento.ciudad "Palmira" %} selected {%endifequal%}>Palmira</option>
+                      <option value="Pasto" {%ifequal ver_evento.ciudad "Pasto" %} selected {%endifequal%}>Pasto</option>
+                      <option value="Pereira" {%ifequal ver_evento.ciudad "Pereira" %} selected {%endifequal%}>Pereira</option>
+                      <option value="Popayan" {%ifequal ver_evento.ciudad "Popayan" %} selected {%endifequal%}>Popayan</option>
+                      <option value="Santa Marta" {%ifequal ver_evento.ciudad "Santa Marta" %} selected {%endifequal%}>Santa Marta</option> 
+                      <option value="Tuluá" {%ifequal ver_evento.ciudad "Tuluá" %} selected {%endifequal%}>Tuluá</option>
+                      <option value="Valledupar" {%ifequal ver_evento.ciudad "Valledupar" %} selected {%endifequal%}>Valledupar</option>
+                      <option value="Villavicencio" {%ifequal ver_evento.ciudad "Villavicencio" %} selected {%endifequal%}>Villavicencio</option>
+                      <option value="Yumbo" {%ifequal ver_evento.ciudad "Yumbo" %} selected {%endifequal%}>Yumbo</option>
+                    </select>
+                    <label>Ciudad</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">location_on</i>
+                    <input value="{{ver_evento.lugar}}" id="icon_prefix" name="lugar" type="text" class="validate" required="required">
+                    <label for="icon_prefix">Lugar</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">directions_bike</i>
+                    <select name="tipo_deporte" id="select-deporte">
+                      <option value="" disabled selected>Selecciona un deporte</option>
+                      <option value="Ajedrez" data-icon="{% static 'img/dep_ajedrez.png' %}" {%ifequal ver_evento.tipo_deporte "Ajedrez" %} selected {%endifequal%} >Ajedrez</option>
+                      <option value="Artes Marciales" data-icon="{% static 'img/dep_artes_marciales.png' %}" {%ifequal ver_evento.tipo_deporte "Artes Marciales" %} selected {%endifequal%}>Artes Marciales</option>
+                      <option value="Atletismo" data-icon="{% static 'img/dep_atletismo.png' %}" {%ifequal ver_evento.tipo_deporte "Atletismo" %} selected {%endifequal%}>Atletismo</option>
+                      <option value="Baile" data-icon="{% static 'img/dep_baile.png' %}" {%ifequal ver_evento.tipo_deporte "Baile" %} selected {%endifequal%}>Baile</option>
+                      <option value="Baloncesto" data-icon="{% static 'img/dep_baloncesto.png' %}" {%ifequal ver_evento.tipo_deporte "Baloncesto" %} selected {%endifequal%} >Baloncesto</option>
+                      <option value="Beisbol" data-icon="{% static 'img/dep_beisbol.png' %}" {%ifequal ver_evento.tipo_deporte "Beisbol" %} selected {%endifequal%}>Beisbol</option>
+                      <option value="Boxeo" data-icon="{% static 'img/dep_boxeo.png' %}" {%ifequal ver_evento.tipo_deporte "Boxeo" %} selected {%endifequal%}>Boxeo</option>
+                      <option value="Ciclismo" data-icon="{% static 'img/dep_ciclismo.png' %}" {%ifequal ver_evento.tipo_deporte "Ciclismo" %} selected {%endifequal%}>Ciclismo</option>
+                      <option value="Esgrima" data-icon="{% static 'img/dep_esgrima.png' %}" {%ifequal ver_evento.tipo_deporte "Esgrima" %} selected {%endifequal%}>Esgrima</option>
+                      <option value="Futbol" data-icon="{% static 'img/dep_futbol.png' %}" {%ifequal ver_evento.tipo_deporte "Futbol" %} selected {%endifequal%}>Futbol</option>
+                      <option value="Gimnasia" data-icon="{% static 'img/dep_gimnasia.png' %}" {%ifequal ver_evento.tipo_deporte "Gimnasia" %} selected {%endifequal%}>Gimnasia</option>
+                      <option value="Golf" data-icon="{% static 'img/dep_golf.png' %}" {%ifequal ver_evento.tipo_deporte "Golf" %} selected {%endifequal%}>Golf</option>
+                      <option value="Hockey" data-icon="{% static 'img/dep_hockey.png' %}" {%ifequal ver_evento.tipo_deporte "Hockey" %} selected {%endifequal%}>Hockey</option>
+                      <option value="Natación" data-icon="{% static 'img/dep_natacion.png' %}" {%ifequal ver_evento.tipo_deporte "Natación" %} selected {%endifequal%}>Natación</option>
+                      <option value="Patinaje" data-icon="{% static 'img/dep_patinaje.png' %}" {%ifequal ver_evento.tipo_deporte "Patinaje" %} selected {%endifequal%}>Patinaje</option>
+                      <option value="Rugby" data-icon="{% static 'img/dep_rugby.png' %}" {%ifequal ver_evento.tipo_deporte "Rugby" %} selected {%endifequal%}>Rugby</option>
+                      <option value="Tenis" data-icon="{% static 'img/dep_tenis.png' %}" {%ifequal ver_evento.tipo_deporte "Tenis" %} selected {%endifequal%}>Tenis</option>
+                      <option value="Voleibol" data-icon="{% static 'img/dep_voleibol.png' %}" {%ifequal ver_evento.tipo_deporte "Voleibol" %} selected {%endifequal%}>Voleibol</option>
+                      <option value="Yoga" data-icon="{% static 'img/dep_yoga.png' %}" {%ifequal ver_evento.tipo_deporte "Yoga" %} selected {%endifequal%}>Yoga</option> 
+                    </select>
+                    <label>Tipo de Deporte</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">group</i>
+                    <input value="{{ver_evento.participante}}" id="icon_prefix" name="participante" type="number" data-length="4" class="validate" required="required">
+                    <label for="icon_prefix">Cantidad de Participantes</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">event</i>
+                    <input value="{{fecha}}" id="icon_prefix" name="fechaInicio" type="text" class="datepicker" required="required">
+                    <label for="icon_prefix">Fecha de Inicio</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">access_time</i>
+                    <input value="{{hora}}" id="icon_prefix" name="hora" type="text" class="timepicker" required="required">
+                    <label for="icon_prefix">Hora de Inicio</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">monetization_on</i>
+                    <input value="{{ver_evento.costo}}" id="icon_prefix" name="costo" type="number" data-length="7" class="validate" required="required">
+                    <label for="icon_prefix">Precio del evento</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">block</i>
+                    <input value="{{ver_evento.restriccion}}" id="icon_prefix" name="restriccion" type="text" class="validate" required="required">
+                    <label for="icon_prefix">Restricciones</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row justify-content-center">
+                <div class="col-md-2 text-right">
+                  <h6>Estado</h6>
+                </div>
+                <div class="col-md-4">
+                  <div class="switch">
+                    <label>
+                      Inactivo
+                      <input {%ifequal ver_evento.estado True %} checked {%endifequal%} name="estado" type="checkbox">
+                      <span class="lever"></span>
+                      Activo
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">face</i>
+                    <input value="{{ver_evento.encargado}}" id="icon_prefix" name="encargado" type="text" class="autocomplete validate" required="required">
+                    <label for="icon_prefix">Encargado</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row justify-content-center">
+                <button class="btn waves-effect waves-light hvr-wobble-skew" type="submit" name="action">Aceptar
+                  <i class="material-icons right">event_available</i>
+                </button>
+              </div>
+
+          </form>       
+        </div>
+
+        </div>
+
+        <!--**********LISTAR EVENTOS*********-->
+        <div id="listar-eventos" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Eventos</h2>
+    
+          </div>
+<div class="nav-wrapper teal darken-2">
+<iframe class="nav-wrapper teal darken-2" style="position: absolute; left:257px; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-eventos-dashboard/" width="1000"></iframe>
+</div>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <!--<script src="vendor/jquery/jquery.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+
+    <script type="text/javascript">
+    
+    
+    function actualizarPagina(rol)
+      {
+        if(rol == 'Administrador')
+        {
+          actualizarMenu('Administrador')
+        }
+        
+      	if(rol == 'Gerente')
+      	{
+      		actualizarMenu('Gerente');
+      	}
+      	
+      	if(rol == 'Operador')
+      	{
+      		actualizarMenu('Operador');
+      	}
+      	
+      	if(rol == 'Participante')
+      	{
+      		actualizarMenu('Participante');
+      	}
+      	
+      	if(rol == 'Usuario Público')
+      	{
+      		actualizarMenu('Usuario Público');
+      	}
+      }
+
+
+      $(document).ready(function(){
+        $(".button-collapse").sideNav({
+          menuWidth: 250,
+          draggable: true,
+        });
+        $('select').material_select();
+        $('.collapsible').collapsible();
+        $('input#icon_prefix, textarea#textareaCuerpoNoticia').characterCounter();
+
+        $('input.autocomplete').autocomplete({
+          data: {
+            "{{usu_rol.name}}": 'https://placehold.it/250x250',
+            "{{usu_rol.name}}": 'https://placehold.it/250x250',
+            "{{usu_rol.name}}": 'https://placehold.it/250x250',
+            "{{usu_rol.name}}": 'https://placehold.it/250x250'
+          },
+          limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+          onAutocomplete: function(val) {},
+          minLength: 1,
+        });
+
+        $('#evento_al_que_pertenece.autocomplete').autocomplete({
+          data: {
+            "Clases de Yoga": 'https://placehold.it/250x250',
+            "Softbol Infantil": 'https://placehold.it/250x250',
+            "Calisthenics": 'https://placehold.it/250x250',
+            "Danza Contemporanea": 'https://placehold.it/250x250',
+            "Davivienda Golf Tour": 'https://placehold.it/250x250'
+          },
+          limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+          onAutocomplete: function(val) {},
+          minLength: 1,
+        });
+
+        $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 15, // Creates a dropdown of 15 years to control year,
+          close: 'Ok',
+          closeOnSelect: true // Close upon selecting a date,
+        });
+
+        $('.timepicker').pickatime({
+          default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+          fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+          twelvehour: true, // Use AM/PM or 24-hour format
+          donetext: 'OK', // text for done-button
+          cleartext: 'Clear', // text for clear-button
+          canceltext: 'Cancel', // Text for cancel-button
+          autoclose: true, // automatic close timepicker
+          ampmclickable: true, // make AM PM clickable
+          aftershow: function(){} //Function for after opening timepicker
+        });
+      });
+      
+
+      //ACTUALIZAR LA PÁGINA DE ACUERDO AL ROL DE CADA USUARIO
+      actualizarPagina('{{ usu_rol.rol }}');
+
+    </script>
+
+  </body>
+</html>

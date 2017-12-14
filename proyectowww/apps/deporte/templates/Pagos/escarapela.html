@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+    <title>ABC Eventos Deportivos</title>
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page 
+    <link href="{% static 'css/estilos_dashboard.css' %}" rel="stylesheet">-->
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    
+    <style type="text/css">
+
+        .escarapela{
+            padding:0px;
+            border:solid 1px black;
+        }
+        .encabezado{
+            background: red; /* For browsers that do not support gradients */
+            background: -moz-linear-gradient(right, #780F67, #602F73, #4A4585, #237E96, #009899); /* For Firefox 3.6 to 15 */
+            background: linear-gradient(to right, #780F67, #602F73, #4A4585, #237E96, #009899); /* Standard syntax */
+        }
+        .foto{
+            width:100%;
+        }
+        
+        .nombre-persona{
+            font-size:1.6em;
+            /*font-weight:bold;*/
+        }
+    </style>
+    </head>
+    
+    <body>
+        <div class="container bg-light">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <h3 class="teal-text">Escarapela para evento "{{evento_seleccionado.titulo}}"</h3>
+                </div>
+            </div>
+
+            
+            <div class="row justify-content-center">
+                <div class="col-md-5 text-center">
+                    <div class="card text-center">
+                      <div class="card-header encabezado" style="padding-top:0px; padding-bottom:0px;">
+                        <img src="{% static 'img/LogoABC.png' %}" height="60">
+                      </div>
+                      <div class="card-body">
+                        <h4 class="card-title"><span class="nombre-persona">{{usuario.user.first_name}} {{usuario.user.last_name}}</span></h4>
+                        <p class="card-title">{{usuario.rol}}</p>
+                        <div class="row justify-content-left">
+                            <div class="col-md-12 text-left">
+                                <h4 class="card-title" style="font-size:1.2em;">{{evento_seleccionado.titulo}}</h4>
+                                <h6 class="card-title" style="font-size:1em;">{{evento_seleccionado.lugar}}</h6>
+                                <h6 class="card-title" style="font-size:1em;">{{evento_seleccionado.ciudad}}</h6>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="card-footer encabezado text-white">
+                        <h6>{{evento_seleccionado.fechaInicio}}</h6>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        
+        
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!--JavaScript para JSGrid-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+        <!-- Custom JavaScript for this theme -->
+        <script src="{% static 'js/scrolling-nav.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+        <script src="{% static 'js/dashboard2.js' %}"></script>
+        
+    </body>
+</html>

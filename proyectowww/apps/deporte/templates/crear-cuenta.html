@@ -1,0 +1,210 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+
+    <title>ABC Eventos Deportivos</title>
+
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{% static 'css/estilos_dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--ReCaptcha Google-->
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    
+    <style type="text/css">
+        #crear-cuenta{
+            margin-left:0px;
+            padding-left:0px;
+        }
+
+    </style>
+    
+  </head>
+
+
+
+  <body id="page-top">
+
+
+    <!--  CREAR CUENTA -->
+      <div id="crear-cuenta" class="container-fluid">
+        <div class="row justify-content-center">
+          <div id="imagen-login" class="col-md-6" style="background-image: url({% static 'img/Login.jpg' %}); background-size: cover; background-repeat: no-repeat; margin-left: 0px">
+          </div>
+          <div class="col-md-6" style="padding-top: 30px">
+            <div class="row justify-content-center">
+            <h2 class="teal-text">Crear Cuenta</h2>
+          </div>
+              
+            <div class="row justify-content-center">
+              <div class="espacio" style="background-color: white"></div>
+              
+              <form name="formularioCrearUsuario" class="col s12" onsubmit="return validarFormularioUsuarios()">
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="file-field input-field">
+                      <div class="btn waves-effect waves-light hvr-wobble-skew">
+                        <span>Foto</span>
+                        <i class="material-icons">camera_alt</i>
+                        <input type="file">
+                      </div>
+                      <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text" placeholder="Selecciona una foto de perfil">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">person</i>
+                      <input id="icon_prefix" name="field-nombres" type="text" class="validate" required="required">
+                      <label for="icon_prefix">Nombres</label>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">person</i>
+                      <input id="icon_prefix" name="field-apellidos" type="text" class="validate" required="required">
+                      <label for="icon_prefix">Apellidos</label>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">account_circle</i>
+                      <input id="icon_prefix" name="field-nickname" type="text" class="validate" required="required">
+                      <label for="icon_prefix">Nickname</label>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">lock_outline</i>
+                      <input id="icon_prefix" name="field-password" type="password" class="validate" required="required">
+                      <label for="icon_prefix">Contraseña</label>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">email</i>
+                      <input id="email" type="email" class="validate" required="required">
+                      <label for="email" data-error="Incorrecto" data-success="Correcto">Email</label>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">face</i>
+                      <input id="icon_prefix" name="field-fecha" type="text" class="datepicker" required="required">
+                      <label for="icon_prefix">Fecha de Nacimiento</label>
+                    </div>
+                  </div>
+                </div>
+                
+
+                <div class="row justify-content-center">
+                  <div class="col-md-8">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">wc</i>
+                      <select>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="1">Femenino</option>
+                        <option value="2">Masculino</option>
+                      </select>
+                      <label>Género</label>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                <div class="row justify-content-center">
+                  <div class="g-recaptcha" data-sitekey="6LcK1zYUAAAAANLazx9wlWz2CSFFUavMOE--8UNB"></div>
+                </div>
+
+
+                <div class="row justify-content-center">
+                  <button class="btn waves-effect waves-light hvr-wobble-skew" type="submit" name="action">Aceptar
+                    <i class="material-icons right">person_add</i>
+                  </button>
+                </div>
+
+              </form>       
+
+            </div>  
+
+              
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('select').material_select();
+        $('.collapsible').collapsible();
+        
+        $('.datepicker').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 15, // Creates a dropdown of 15 years to control year,
+          close: 'Ok',
+          closeOnSelect: true // Close upon selecting a date,
+        });
+      });
+    </script>
+
+
+  </body>
+
+</html>

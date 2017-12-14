@@ -1,0 +1,438 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+
+    <title>ABC Eventos Deportivos</title>
+
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+
+
+  <body id="page-top">
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'deportes:index' %}">
+          <img src="{% static 'img/LogoABC.png' %}" height="60">
+        </a>
+
+        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="{%url 'deportes:dashboard'%}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="{%url 'deportes:logout'%}">Cerrar Sesión</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="#contacto">Contáctenos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- HEADER -->
+    <header class="text-white" style="background-image: url({% static ver_evento.imagen.url %});">
+      <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="titulo-evento text-center">{{ ver_evento.titulo }}</h1>
+        </div>
+
+        <div class="row justify-content-center">
+            <h5 class="light text-lighten-3 text-center"><mark class="texto-normal descripcion-noticia">El evento inicia en:</mark></h5>
+        </div> 
+
+        <div class="row justify-content-center"> <!--Contenedor del countdown-->
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+            <div class="row justify-content-center">
+
+              <div class="col-md-auto countdown">
+                <h5 id="c-dia">03</h5>
+                <h6>Días</h6>
+              </div>
+              <div class="col-md-auto countdown">
+                <h5 id="c-hora">03</h5>
+                <h6>Horas</h6>
+              </div>
+              <div class="col-md-auto countdown">
+                <h5 id="c-minuto">03</h5>
+                <h6>Min</h6>
+              </div>
+              <div class="col-md-auto countdown">
+                <h5 id="c-segundo">03</h5>
+                <h6>Seg</h6>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+        </div> 
+      </div>
+    </header>
+
+
+    <!-- CUERPO DE LA PÁGINA -->
+    <section>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6"> 
+
+            <div class="row justify-content-center">
+              <div class="col-3"><hr></div>
+              <div class="col-md-auto">
+                <h1 class="titulo text-center">DETALLES</h1>
+              </div>
+              <div class="col-3"><hr></div>
+            </div>
+
+            <div class="espacio" style="height: 40px"><p></p></div>
+
+            <div class="row justify-content-center">
+              <div class="col-md-6 text-center">
+                <h5 class="titulo-detalle">Fecha de inicio:</h5>
+                <h6 class="texto-detalle"><i class="material-icons">event</i> {{ ver_evento.fechaInicio }}</h6>
+              </div>
+              <div class="col-md-6 text-center">
+                <h5 class="titulo-detalle">Hora:</h5>
+                <h6 class="texto-detalle"><i class="material-icons">access_time</i> {{ver_evento.hora}}</h6>
+              </div>
+            </div>
+
+            <div class="espacio" style="height: 30px"><p></p></div>
+
+            <div class="row justify-content-center">
+              <div class="col-md-6 text-center">
+                <h5 class="titulo-detalle">Restricciones:</h5>
+                <h6 class="texto-detalle"><i class="material-icons">block</i> {{ver_evento.restriccion}}</h6>
+              </div>
+              <div class="col-md-6 text-center">
+                <h5 class="titulo-detalle">Costo:</h5>
+                <h6 class="texto-detalle"><i class="material-icons">monetization_on</i> ${{ver_evento.costo}}</h6>
+              </div>
+            </div>
+
+            <div class="espacio" style="height: 30px"><p></p></div>
+
+            <div class="row justify-content-center">
+              <div class="col-md-6 text-center">
+                <h5 class="titulo-detalle">Encargado:</h5>
+                <h6 class="texto-detalle"><i class="material-icons">face</i> {{ver_evento.encargado}}</h6>
+              </div>
+              <div class="col-md-6 text-center">
+                <h5 class="titulo-detalle">Participantes:</h5>
+                <h6 class="texto-detalle"><i class="material-icons">group</i> {{ver_evento.participante}}</h6>
+              </div>
+            </div>
+
+            <div class="espacio" style="height: 30px"><p></p></div>
+
+          </div>
+
+          <div class="col-md-6">
+            
+            <div class="row justify-content-center">
+              <div class="col-3"><hr></div>
+              <div class="col-md-auto">
+                <h1 class="titulo text-center">LUGAR</h1>
+              </div>
+              <div class="col-3"><hr></div>
+            </div>
+
+            <div class="row justify-content-center">
+              <div class="col-md-1"></div>
+              <div class="col-md-5">
+                <h6><i class="material-icons">location_on</i> {{ver_evento.lugar}}</h6>
+              </div>
+              <div class="col-md-5 ml-auto text-center">
+                <h6><i class="material-icons">location_city</i> {{ver_evento.ciudad}}</h6>
+              </div>
+
+              <div class="espacio" style="height: 20px"><p></p></div>
+
+              <iframe width="500" height="350" frameborder="0" style="border:0"
+src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJC1bieL2mMI4RovkAV--vrWE&key=AIzaSyC6wut2RvQDcNYB2yam0HbxN8lLoD_5qfI" allowfullscreen></iframe>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-3"><hr></div>
+        <div class="col-md-auto">
+          <h1 class="titulo text-center" style="font-size: 3em;">ACTIVIDADES</h1>
+        </div>
+        <div class="col-3"><hr></div>
+      </div>
+    </div>
+    
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto"> 
+
+          <div class="espacio" style="height: 20px"><p></p></div>
+          <!---TABS-->
+          <nav class="nav nav-tabs bg-light" id="tabs-actividades" role="tablist">
+            <a class="nav-item nav-link active waves-effect waves-light hvr-wobble-skew" id="dia1-tab" data-toggle="tab" href="#dia1" role="tab" aria-controls="nav-home" aria-expanded="true">Día 1</a>
+            <a class="nav-item nav-link waves-effect waves-light hvr-wobble-skew" id="dia2-tab" data-toggle="tab" href="#dia2" role="tab" aria-controls="nav-profile">Día 2</a>
+            <a class="nav-item nav-link waves-effect waves-light hvr-wobble-skew" id="dia3-tab" data-toggle="tab" href="#dia3" role="tab" aria-controls="nav-profile">Día 3</a>
+          </nav>
+          <!--Contenido de las tabs-->
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="dia1" role="tabpanel" aria-labelledby="dia1-tab">
+
+              <div class="container">
+                <div class="row justify-content-center">
+                  <h4 class="fecha-dia">14 Dic 2017</h4>
+                </div>
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 2:00 p.m. - 2:40 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Conociendo a los miembros del equipo</h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 2:40 p.m. - 4:00 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Introducción al Softbol</h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 4:00 p.m. - 6:00 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Primer entrenamiento</h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="dia2" role="tabpanel" aria-labelledby="dia2-tab">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <h4 class="fecha-dia">15 Dic 2017</h4>
+                </div>
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 2:00 p.m. - 3:00 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Ejercicios Preliminares </h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 3:00 p.m. - 5:00 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Segundo Entrenamiento</h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="dia3" role="tabpanel" aria-labelledby="dia3-tab">
+              <div class="container">
+                <div class="row justify-content-center">
+                  <h4 class="fecha-dia">16 Dic 2017</h4>
+                </div>
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 2:00 p.m. - 3:30 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Tercer Entrenamiento</h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 3:30 p.m. - 4:00 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Descanso y sugerencias del entrenador</h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+
+                <div class="row actividad">
+                  <div class="col-md-4 text-center">
+                    <h4 class="horario-actividad"> 4:00 p.m. - 6:00 p.m.</h4>
+                  </div>
+                  <div class="col-md-8">
+                    <h6 class="titulo-actividad"> Primer partido contra Escuela Naval</h6>
+                    <a class="btn-outline-black waves-effect waves-teal hvr-wobble-skew" href="#!">Inscribirse</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    {% if user.is_authenticated %}
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto seccion-preinscripcion">
+          <div class="row justify-content-center"><h1 class="titulo">Preinscribete ahora! Sólo quedan 20 cupos</h1></div>
+          <h5 class="titulo">Si al momento de la preinscripción aún quedan cupos, autómaticamente el sistema le pedirá que cancele el cobro de $50.000 y usted quedará en la lista de participantes al evento.
+          <br> De lo contrario, sus datos estarán en una lista de espera y se le notificará por correo electrónico si alguien cancela su participación.</h5>
+          <div class="row justify-content-center"><a class="btn-large text-white hvr-wobble-skew waves-effect waves-light" href="{% url 'deportes:guardar_evento_usuario'  ver_evento.id %}"><i class="material-icons left">person_add</i>  PREINSCRIBIRSE</a></div>
+          <div class="espacio" style="height: 50px"><p></p></div>
+
+        </div>
+      </div>
+      {% endif %}
+      
+
+
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer id="contacto">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 align-items-center text-white">
+            <div class="row justify-content-center">
+              <img src="{% static 'img/LogoABC.png' %}" height="70px">
+            </div>
+            <p>Somos una empresa encargada de gestionar cualquier tipo de evento deportivo. Contamos con varias sedes en las principales ciudades del país.</p>
+          </div>
+          <div class="col-md-4 text-white">
+            <div class="row justify-content-center">
+              <h3>Contáctenos</h3>
+            </div>
+            <h6><i class="material-icons">location_on</i> Avenida Colombia No. 5-105 Oeste</h6>
+            <h6><i class="material-icons">local_phone</i> 8932939</h6>
+            <h6><i class="material-icons">phone_android</i> 3172930283</h6>
+            <h6><i class="material-icons">email</i> contacto@abceventos.com</h6>
+          </div>
+          <div class="col-md-4 text-white text-center">
+            <h3>Redes Sociales</h3>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/facebook-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/twitter-with-circle.svg' %}" width="35px"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="espacio-footer"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/instagram-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/pinterest-with-circle.svg' %}" width="35px"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="espacio-footer"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/google-plus-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/tumblr-with-circle.svg' %}" width="35px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+    <!--Script para countdown-->
+
+    <script type="text/javascript">
+
+      var fechaInicio = new Date("Dec 14, 2017 14:00:00").getTime();
+      //var fechaInicio = new Date("{{ver_evento.fechaInicio}}").getTime();
+      var x = setInterval(function() 
+      {
+
+        var fechaActual = new Date().getTime();
+        var distancia = fechaInicio - fechaActual;
+
+        // Calcular días, horas, minutos y segundos
+        var dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+        var horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        var segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+        // Mostrar el resultado en la página
+        document.getElementById("c-dia").innerHTML = dias;
+        document.getElementById("c-hora").innerHTML = horas;
+        document.getElementById("c-minuto").innerHTML = minutos;
+        document.getElementById("c-segundo").innerHTML = segundos;
+
+        // Si el temporizador finaliza, poner el reloj en ceros
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("c-dia").innerHTML = 0;
+          document.getElementById("c-hora").innerHTML = 0;
+          document.getElementById("c-minuto").innerHTML = 0;
+          document.getElementById("c-segundo").innerHTML = 0;
+        }
+      }, 1000);
+    </script>
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    <script src="{% static 'js/materialize.min.js' %}"></script>
+
+
+
+  </body>
+
+</html>

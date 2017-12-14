@@ -1,0 +1,588 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+    <title>ABC Eventos Deportivos</title>
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{% static 'css/estilos_dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--JSGrid para Tablas-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+    
+    <style type="text/css">
+    
+    </style>
+  </head>
+
+  <body class = "bg-light">
+  {{User}}
+    <div id="main-body" style="z-index: -50">
+      
+      <!--BARRA LATERAL-->
+      <ul id="slide-out" class="side-nav fixed">
+        <li>
+          <div id="encabezado-barra" class="text-white teal darken-2">
+            <div class="row justify-content-center">
+              <div class="col-12 text-center">
+                <img id="avatar-usuario" src="{{usuario.foto.url}}"> 
+                <h5 id="nombre-usuario">{{usuario.user.first_name}}</h5>
+                <h6 id="rol-usuario">{{usuario.rol}}</h6>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--Botón Inicio-->
+        <li><a id="btn-inicio" class="hvr-sweep-to-right waves-effect waves-light">
+          <i class="material-icons">home</i>Inicio</a>
+        </li>
+
+        <!--Botón Iniciar Sesión-->
+        <li><a id="btn-iniciar-sesion" class="hvr-sweep-to-right waves-effect waves-light oculto">
+          <i class="material-icons">home</i>Iniciar sesión</a></li>
+
+        <!--Botón Mi Información-->
+        <li><a id="btn-mi-info" class="hvr-sweep-to-right waves-effect waves-light">
+          <i class="material-icons">account_circle</i>Mi Información</a>
+        </li>
+
+        <!--Sección Botones Usuarios-->
+        <li id="dropdown-usuarios" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Usuarios
+                <i class="material-icons">face</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-usuario" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario-usuario">
+                    <i class="material-icons">person_add</i>Crear Usuario</a></li>
+                  <li><a id="btn-listar-usuarios" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">group</i>Listar Usuarios</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!--Sección Botones Eventos-->
+        <li id="dropdown-eventos" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Eventos
+                <i class="material-icons">event</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-evento" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_evento">
+                    <i class="material-icons">event_available</i>Crear Evento</a></li>
+                  <li><a id="btn-listar-eventos" class="hvr-sweep-to-right waves-effect waves-light" href="/ver_listado_eventos_usuario">
+                    <i class="material-icons">event_note</i>Listar Eventos</a></li>
+                  {% if usuario.rol == 'Participante' %}
+                    <li><a id="btn-listar-eventos" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">event_note</i>Mis Eventos</a></li>
+                  {% endif %}
+                  <li><a id="btn-dashboard-eventos" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">dashboard</i> Dashboard Eventos</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!--Sección Botones Actividades-->
+        <li id="dropdown-actividades" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Actividades
+                <i class="material-icons">extension</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-actividad" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_actividad">
+                    <i class="material-icons">add_circle_outline</i>Crear Actividad</a></li>
+                  <li><a id="btn-listar-actividades" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">list</i>Listar Actividades</a></li>
+                  <li><a id="btn-calendario-actividades" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">event</i>Calendario Actividades</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <!--Sección Botones Noticias-->
+        <li id="dropdown-noticias" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Noticias
+                <i class="material-icons">receipt</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-noticia" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_noticia">
+                    <i class="material-icons">library_add</i>Crear Noticia</a></li>
+                  <li><a id="btn-listar-noticias" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">library_books</i>Listar Noticias</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <!--Botón Cerrar Sesión-->
+        <form action="">{% csrf_token %}
+        <li><a id="btn-cerrar-sesion" class="hvr-sweep-to-right waves-effect waves-light" name="cerrarsesion" href="{% url 'deportes:logout' %}">
+          <i class="material-icons">power_settings_new</i>Cerrar sesión</a></li>
+        </form>
+        
+        
+        <!--Botón Volver a Página Principal-->
+        <li><a id="btn-pag-principal" class="hvr-sweep-to-right waves-effect waves-light oculto" href="index.html">
+          <i class="material-icons">arrow_back</i>Página principal</a></li>
+      </ul>
+
+
+
+      <!------------------------------CUERPO DEL DASHBOARD------------------------->
+      <div id="main">
+
+        <!--BARRA DE NAVEGACIÓN-->
+        <nav>
+          <div class="nav-wrapper teal darken-2">
+            <a href="#!" class="brand-logo center"><img src="{% static 'img/LogoABC.png' %}" height="60"></a>
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+          </div>
+        </nav>
+
+
+
+        <!--**********DASHBOARD EVENTOS*********-->
+        <div id="dashboard-eventos" class="container-fluid bg-light">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Dashboard Eventos</h2>
+          </div>
+          
+    
+          
+            <div class="row">
+                <div class="col-md-4">
+                    
+                    <!---Número de Usuarios--->
+                    <div class="card-panel indigo lighten-3 hoverable text-center white-text">
+                      <img src="{% static 'img/dashboard/profile.png' %}" height=50></img>
+                      <h6>Usuarios</h6>
+                      <h4 style = "margin-top:0px; margin-bottom:0px;">{{total_usuarios}}</h4>
+                    </div>
+                </div>
+                
+                
+                <div class="col-md-4">
+                    <!---Número de Users Mujeres--->
+                    <div class="card-panel white hoverable text-center">
+                      <img src="{% static 'img/dashboard/woman.png' %}" height=50></img>
+                      <h6 class="pink-text text-darken-3">Mujeres</h6>
+                      <h4 class="pink-text text-darken-3" style = "margin-top:0px; margin-bottom:0px;">{{total_mujeres}}</h4>
+                    </div>
+                </div>
+                
+                
+                <div class="col-md-4">
+                    <!---Número de Users hombres--->
+                    <div class="card-panel white hoverable text-center">
+                      <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                      <h6 class="cyan-text text-darken-2">Hombres</h6>
+                      <h4 class="cyan-text text-darken-2" style = "margin-top:0px; margin-bottom:0px;">{{total_hombres}}</h4>
+                    </div>
+                </div>
+                
+                
+                <div class="col-md-12">
+                    <!---Número de Mujeres/Hombres por Categoría (Gráfico Vertical)--->
+                    <div class="card-panel white hoverable text-center dark-text">
+                      <h6>Mujeres/Hombres por Categoría</h6>
+                      <canvas id="generosPorCategoria"></canvas>
+                    </div>
+                </div>
+
+                
+            </div> <!---FIN DEL ROW PRINCIPAL--->
+        
+        
+        
+        <div class="row">
+          
+          <div class="col-md-12">
+                    
+            <!---Número de Eventos por Categoría (Gráfico Pie)--->
+            <div class="card-panel white hoverable text-center dark-text">
+              <h6>Eventos por Categoría</h6>
+              <canvas id="eventosPorCategoria"></canvas>
+            </div>
+          </div>
+          
+ 
+            
+            
+            
+            <div class="col-md-3">
+                
+                <!---Número de Edades por Categoría (Gráfico Horizontal)--->
+                <div class="card-panel white hoverable text-center dark-text">
+                  <h6>Edades por Categoría</h6>
+                </div>
+            </div>
+            
+            
+        </div>
+            
+            
+        
+        <div class="row">
+          
+          <div class="col-md-3">
+                    
+                    <!---Número de Eventos--->
+                    <div class="card-panel amber lighten-3 hoverable text-center white-text">
+                      <img src="{% static 'img/dashboard/event.png' %}" height=50></img>
+                      <h6>Eventos</h6>
+                      <h4 style = "margin-top:0px; margin-bottom:0px;">120</h4>
+                    </div>
+          </div>
+          
+          
+          
+            <div class="col-md-5">
+                
+                <!---Evento con mayor número de inscritos--->
+                <div class="card-panel white hoverable text-center">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <!---CAMBIAR IMAGEN CUANDO TENGA EL COLOR--->
+                            <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                        </div>
+                        <div class="col-md-10">
+                            <h5 class="" style = "margin-top:0px; margin-bottom:0px;">Evento Super Importante</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h6 class="">Evento con mayor número de participantes</h6>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-2">
+                
+                <!---Cantidad total de actividades--->
+                <div class="card-panel white hoverable text-center">
+                  <!---CAMBIAR IMAGEN CUANDO TENGA EL COLOR--->
+                  <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                  <h6 class="">Actividades</h6>
+                  <h4 class="" style = "margin-top:0px; margin-bottom:0px;">249</h4>
+                </div>
+            </div>
+            
+            <div class="col-md-5">
+                
+                <!---Evento con mayor número de actividades--->
+                <div class="card-panel white hoverable text-center">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <!---CAMBIAR IMAGEN CUANDO TENGA EL COLOR--->
+                            <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                        </div>
+                        <div class="col-md-10">
+                            <h5 class="" style = "margin-top:0px; margin-bottom:0px;">Evento Super Importante</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h6 class="">Evento con mayor número de actividades</h6>
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+            <div class="row">
+                <div class="col-md-6">
+                    
+                    <!---Número de Personas por lugar (Gráfico Mapa)--->
+                    <div class="card-panel white hoverable text-center dark-text">
+                      <h6>Personas por Lugar</h6>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    
+                    <!---Número de Actividades por Evento (Gráfico Linea)--->
+                    <div class="card-panel white hoverable text-center dark-text">
+                      <h6>Actividades por Evento</h6>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            <div class="row">
+                <div class="col-md-4">
+                    
+                    <!---Evento más cercano--->
+                    <div class="row">
+                      <div class="card-panel white hoverable text-center">
+                          <div class="row">
+                              <div class="col-md-2">
+                                  <!---CAMBIAR IMAGEN CUANDO TENGA EL COLOR--->
+                                  <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                              </div>
+                              <div class="col-md-10">
+                                  <h5 class="" style = "margin-top:0px; margin-bottom:0px;">Evento Super Importante</h5>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <h6 class="">Evento más cercano</h6>
+                          </div>
+                      </div>
+                    </div>
+                    <!---Evento más lejano--->
+                    <div class="row">
+                      <div class="card-panel white hoverable text-center">
+                          <div class="row">
+                              <div class="col-md-2">
+                                  <!---CAMBIAR IMAGEN CUANDO TENGA EL COLOR--->
+                                  <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                              </div>
+                              <div class="col-md-10">
+                                  <h5 class="" style = "margin-top:0px; margin-bottom:0px;">Evento Super Importante</h5>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <h6 class="">Evento más lejano</h6>
+                          </div>
+                      </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="col-md-8">
+                    
+                    <!---Cantidad de eventos por lugar (Gráfico Mapa)--->
+                    <div class="card-panel white hoverable text-center dark-text">
+                      <h6>Eventos por lugar</h6>
+                    </div>
+                </div>
+            </div>
+            
+            
+            
+            
+            <div class="row">
+                <div class="col-md-9">
+                    
+                    <!---Ingresos por tiempo (Gráfico Líneas)--->
+                    <div class="card-panel white hoverable text-center dark-text">
+                      <h6>Ingresos por fecha</h6>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    
+                    <div class="row">
+                      <!---Evento más económico--->
+                        <div class="row">
+                          <div class="card-panel white hoverable text-center">
+                              <div class="row">
+                                  <div class="col-md-2">
+                                      <!---CAMBIAR IMAGEN CUANDO TENGA EL COLOR--->
+                                      <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                                  </div>
+                                  <div class="col-md-10">
+                                      <h5 class="" style = "margin-top:0px; margin-bottom:0px;">Evento Super Importante</h5>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <h6 class="">Evento más económico</h6>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                      <!---Evento más costoso--->
+                        <div class="row">
+                          <div class="card-panel white hoverable text-center">
+                              <div class="row">
+                                  <div class="col-md-2">
+                                      <!---CAMBIAR IMAGEN CUANDO TENGA EL COLOR--->
+                                      <img src="{% static 'img/dashboard/man.png' %}" height=50></img>
+                                  </div>
+                                  <div class="col-md-10">
+                                      <h5 class="" style = "margin-top:0px; margin-bottom:0px;">Evento Super Importante</h5>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <h6 class="">Evento más costoso</h6>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            
+            <div class="row">
+                <div class="col-md-6">
+                    
+                    <!---Número de Eventos por fecha (Gráfico Línea)--->
+                    <div class="card-panel white hoverable text-center dark-text">
+                      <h6>Eventos por fecha</h6>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    
+                    <!---Total Ingresos--->
+                    <div class="card-panel indigo lighten-3 hoverable text-center white-text">
+                      <img src="{% static 'img/dashboard/profile.png' %}" height=50></img>
+                      <h6>Total Ingresos</h6>
+                      <h4 style = "margin-top:0px; margin-bottom:0px;">$23000</h4>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            
+            
+        
+    </div>  
+
+        
+        
+      </div>
+
+    </div>
+
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!--JavaScript para JSGrid-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="{% static 'js/dashboard2.js' %}"></script>
+    <!--- Javascript para Gráficos --->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <!---Gráficos de Google--->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ 
+    <!--****************************************************-->
+    
+    <!--Gráficos de Chartjs-->
+    <script type="text/javascript">
+      var tipos_deporte = ["Ajedrez", "Artes Marciales", "Atletismo", "Baile", "Baloncesto", "Beisbol",
+                        "Boxeo", "Ciclismo", "Esgrima", "Futbol", "Gimnasia", "Golf", "Hockey",
+                        "Natación", "Patinaje", "Rugby", "Tenis", "Voleibol", "Yoga"]
+                        
+      var colores_deporte = ['rgb(165, 214, 167)', 'rgb(149, 117, 205)', 'rgb(124, 179, 66)', 'rgb(245, 124, 0)',
+                              'rgb(77, 182, 172)', 'rgb(244, 143, 177)', 'rgb(92, 107, 192)', 'rgb(144, 202, 249)',
+                              'rgb(205, 220, 57)', 'rgb(109, 76, 65)', 'rgb(216, 27, 96)', 'rgb(56, 142, 60)', 
+                              'rgb(3, 155, 229)', 'rgb(142, 36, 170)', 'rgb(183, 28, 28)', 'rgb(255, 213, 79)',
+                              'rgb(161, 136, 127)', 'rgb(158, 158, 158)', 'rgb(209, 196, 233)']
+      
+      
+      var genero_categoria = document.getElementById('generosPorCategoria').getContext('2d');
+      var chart = new Chart(genero_categoria, {
+          // The type of chart we want to create
+          type: 'bar',
+          // The data for our dataset
+          data: {
+              labels: tipos_deporte,
+                        
+              datasets: [
+                {
+                  label: "Mujeres",
+                  backgroundColor: 'green',
+                  borderColor: 'rgba(255, 99, 132, 0.5)',
+                  data: [0, 10, 5, 2, 20, 30, 45, 12, 4, 6, 28, 10],
+                },
+                {
+                  label: "Hombres",
+                  backgroundColor: 'blue',
+                  borderColor: 'rgba(255, 99, 132, 0.5)',
+                  data: [2, 9, 7, 25, 10, 45, 5, 1, 4, 6, 8, 1],
+              }]
+          },
+          // Configuration options go here
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            animateRotate: true,
+          }
+      });
+      
+      
+                                    
+      var eventos_categoria = document.getElementById('eventosPorCategoria').getContext('2d');
+      var chart = new Chart(eventos_categoria, {
+          // The type of chart we want to create
+          type: 'pie',
+          // The data for our dataset
+          data: {
+              labels: tipos_deporte,
+                        
+              datasets: [{
+                  label: "Eventos",
+                  backgroundColor: colores_deporte,
+                  borderColor: 'rgba(255, 99, 132, 0.5)',
+                  data: [0, 10, 5, 2, 20, 30, 45, 12, 4, 6, 28, 10],
+              }]
+          },
+          // Configuration options go here
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            animateRotate: true,
+          }
+      });
+      
+      
+      
+      
+    </script>
+    
+
+    
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+        $(".button-collapse").sideNav({
+          menuWidth: 250,
+          draggable: true,
+        });
+        $('.collapsible').collapsible();
+      });
+
+
+      //ACTUALIZAR LA PÁGINA DE ACUERDO AL ROL DE CADA USUARIO (Administrador, Gerente, Operador, Participante, Usuario Público)
+      actualizarMenu('{{usuario.rol}}');
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,524 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+    <title>ABC Eventos Deportivos</title>
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{% static 'css/estilos_dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--JSGrid para Tablas-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+    
+    <style type="text/css">
+    
+      .card-header{
+        background-size: cover; 
+        background-repeat: no-repeat;
+        text-shadow: 3px 2px 4px black;
+        padding-top:2px;
+        padding-bottom:2px;
+      }
+      
+      #tarjeta-costo-eventos{
+        background: green; /* For browsers that do not support gradients */
+        background: -moz-linear-gradient(right, #9e9d24, #7cb342);
+        background: linear-gradient(to left, #9e9d24, #7cb342); 
+        height: 100px;
+      }
+      
+      #tarjeta-num-eventos{
+        text-shadow: 3px 2px 4px black;
+        background: cyan; /* For browsers that do not support gradients */
+        background: -moz-linear-gradient(right, #80deea, #4db6ac);
+        background: linear-gradient(to left, #80deea, #4db6ac); 
+        height: 100px;
+      }
+      
+      hr{
+        border:solid 0.2px gray;
+      }
+      
+      #lista-tareas{
+        margin-left:30px;
+      }
+      
+      #lista-tareas .collection-header{
+        background-color: #26a69a;
+      }
+      
+      #lista-eventos-cercanos .collection-header{
+        background-color: #9575cd;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+  {{User}}
+    <div id="main-body" style="z-index: -50">
+      
+      <!--BARRA LATERAL-->
+      <ul id="slide-out" class="side-nav fixed">
+        <li>
+          <div id="encabezado-barra" class="text-white teal darken-2">
+            <div class="row justify-content-center">
+              <div class="col-12 text-center">
+                <img id="avatar-usuario" src="{{usu_rol.foto.url}}"> 
+                <h5 id="nombre-usuario">{{usu_rol.user.first_name}}</h5>
+                <h6 id="rol-usuario">{{usu_rol.rol}}</h6>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!--Botón Inicio-->
+        <li><a id="btn-inicio" class="hvr-sweep-to-right waves-effect waves-light">
+          <i class="material-icons">home</i>Inicio</a>
+        </li>
+
+        <!--Botón Iniciar Sesión-->
+        <li><a id="btn-iniciar-sesion" class="hvr-sweep-to-right waves-effect waves-light oculto">
+          <i class="material-icons">home</i>Iniciar sesión</a></li>
+
+        <!--Botón Mi Información-->
+        <li><a id="btn-mi-info" class="hvr-sweep-to-right waves-effect waves-light">
+          <i class="material-icons">account_circle</i>Mi Información</a>
+        </li>
+
+        <!--Sección Botones Usuarios-->
+        <li id="dropdown-usuarios" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Usuarios
+                <i class="material-icons">face</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-usuario" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario-usuario">
+                    <i class="material-icons">person_add</i>Crear Usuario</a></li>
+                  <li><a id="btn-listar-usuarios" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">group</i>Listar Usuarios</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!--Sección Botones Eventos-->
+        <li id="dropdown-eventos" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Eventos
+                <i class="material-icons">event</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-evento" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_evento">
+                    <i class="material-icons">event_available</i>Crear Evento</a></li>
+                    {% if usu_rol.rol == 'Participante' %}
+                      <li><a id="btn-inscripcion-eventos" class="hvr-sweep-to-right waves-effect waves-light" href="/lista_eventos">
+                      <i class="material-icons">add_circle_outline</i>Inscribirse a Eventos</a></li>
+                    {% endif %}
+                  <li><a id="btn-listar-eventos" class="hvr-sweep-to-right waves-effect waves-light" href="/ver_listado_eventos_usuario">
+                    <i class="material-icons">event_note</i>Listar Eventos</a></li>
+                  {% if usu_rol.rol == 'Participante' %}
+                    <li><a id="btn-mis-eventos" class="hvr-sweep-to-right waves-effect waves-light" href="/ver_listado_eventos_usuario">
+                    <i class="material-icons">event_note</i>Mis Eventos</a></li>
+                  {% endif %}
+                  <li><a id="btn-dashboard-eventos" class="hvr-sweep-to-right waves-effect waves-light" href="/dashboard_eventos">
+                    <i class="material-icons">dashboard</i> Dashboard Eventos</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!--Sección Botones Actividades-->
+        <li id="dropdown-actividades" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Actividades
+                <i class="material-icons">extension</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-actividad" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_actividad">
+                    <i class="material-icons">add_circle_outline</i>Crear Actividad</a></li>
+                  <li><a id="btn-listar-actividades" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">list</i>Listar Actividades</a></li>
+                  <li><a id="btn-calendario-actividades" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">event</i>Calendario Actividades</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <!--Sección Botones Noticias-->
+        <li id="dropdown-noticias" class="no-padding hvr-sweep-to-right waves-effect waves-light">
+          <ul class="collapsible collapsible-accordion">
+            <li>
+              <a class="collapsible-header">Noticias
+                <i class="material-icons">receipt</i> <i class="material-icons right">arrow_drop_down</i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a id="btn-crear-noticia" class="hvr-sweep-to-right waves-effect waves-light" href="/formulario_noticia">
+                    <i class="material-icons">library_add</i>Crear Noticia</a></li>
+                  <li><a id="btn-listar-noticias" class="hvr-sweep-to-right waves-effect waves-light">
+                    <i class="material-icons">library_books</i>Listar Noticias</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <!--Botón Cerrar Sesión-->
+        <form action="">{% csrf_token %}
+        <li><a id="btn-cerrar-sesion" class="hvr-sweep-to-right waves-effect waves-light" name="cerrarsesion" href="{% url 'deportes:logout' %}">
+          <i class="material-icons">power_settings_new</i>Cerrar sesión</a></li>
+        </form>
+        
+        
+        <!--Botón Volver a Página Principal-->
+        <li><a id="btn-pag-principal" class="hvr-sweep-to-right waves-effect waves-light oculto" href="index.html">
+          <i class="material-icons">arrow_back</i>Página principal</a></li>
+      </ul>
+
+
+
+      <!------------------------------CUERPO DEL DASHBOARD------------------------->
+      <div id="main">
+
+        <!--BARRA DE NAVEGACIÓN-->
+        <nav>
+          <div class="nav-wrapper teal darken-2">
+            <a href="{% url 'deportes:index' %}" class="brand-logo center"><img src="{% static 'img/LogoABC.png' %}" height="60"></a>
+            <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+          </div>
+        </nav>
+
+
+        <!--**********INICIO*********-->
+        <div id="inicio" class="container-fluid">
+          <div class="row justify-content-center">
+            <h3 class="teal-text">
+              {% if horario == 'Mañana' %}  Buenos días {{usu_rol.user.first_name}}!  {% endif %}
+              {% if horario == 'Tarde' %}  Buenas tardes {{usu_rol.user.first_name}}!  {% endif %}
+              {% if horario == 'Noche' %}  Buenas noches {{usu_rol.user.first_name}}!  {% endif %}
+            </h3>
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+              
+              <!--Tarjeta del clima, fecha y hora-->
+              <div class="card">
+                <div id = "tarjeta-clima" class="card-header text-right text-white" style = "background-image: url({% static 'img/dashboard/morning.jpg' %});">
+                  <h2>{{temperatura}}°c</h2>
+                  <hr>
+                  <div class="row justify-content-between">
+                    <div class="col-md-4">
+                      <h5>
+                        {% if hora < 10 %}0{% endif %}{{hora}}:{% if minuto < 10 %}0{% endif %}{{minuto}}
+                      </h5>
+                    </div>
+                    <div class="col-md-8">
+                      <h5>
+                        {% if mes == 1 %} Ene/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 2 %} Feb/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 3 %} Mar/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 4 %} Abr/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 5 %} May/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 6 %} Jun/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 7 %} Jul/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 8 %} Ago/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 9 %} Sep/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 10 %} Oct/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 11 %} Nov/{{dia}}/{{año}} {% endif %}
+                        {% if mes == 12 %} Dic/{{dia}}/{{año}} {% endif %}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            <!---Estadísticas del usuario--->
+            <div class="col-md-6">
+              <!---Tarjeta costo total eventos--->
+              <div class="row">
+                <div class="card">
+                  <div id = "tarjeta-costo-eventos" class="card-header text-right text-white">
+                    <div class="row">
+                      <div class = "col-md-4">
+                        <img src="{% static 'img/dashboard/money.png' %}" height="90">
+                      </div>
+                      <div class = "col-md-8 text-center">
+                        <h5>$148000</h5>
+                        <h6>Dinero gastado en eventos</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <!---Tarjeta número total eventos--->
+                  <div id = "tarjeta-num-eventos" class = "card-body text-right text-white">
+                    <div class="row">
+                      <div class = "col-md-4">
+                        <img src="{% static 'img/dashboard/event.png' %}" height="70">
+                      </div>
+                      <div class = "col-md-8 text-center">
+                        <h5>23</h5>
+                        <h6>Eventos asistidos</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          
+          
+          <!---Lista de tareas--->
+          <div class = "row">
+            <div class = "col-md-5">
+              <form>
+                <ul id = "lista-tareas" class="collection with-header text-dark">
+                  <li class="collection-header text-white"><h4>Lista de tareas</h4></li>
+                  <li class="collection-item">
+                    <input type="checkbox" id="test1"/>
+                    <label for="test1">Planear evento sobre fútbol</label>
+                  </li>
+                  <li class="collection-item">
+                    <input type="checkbox" id="test2"/>
+                    <label for="test2">Comparar estadísticas mes pasado</label>
+                  </li>
+                  <li class="collection-item">
+                    <input type="checkbox" id="test1"/>
+                    <label for="test1">Actualizar lista de invitados</label>
+                  </li>
+                  <li class="collection-item">
+                    <input type="checkbox" id="test1"/>
+                    <label for="test1">Comprar decoraciones para evento</label>
+                  </li>
+                  <li class="collection-item">
+                    <input type="text" id="agregar-tarea" placeholder="Agregar nueva tarea"/>
+                    <input class = "btn waves-effect waves-light hvr-wobble-skew" type="submit" value="Agregar"/>
+                  </li>
+                </ul>
+              </form>
+            </div>
+            <!---Lista de eventos recientes--->
+            <div class = "col-md-7">
+              <ul id = "lista-eventos-cercanos" class="collection with-header">
+                <li class="collection-header text-white"><h4>Eventos cercanos</h4></li>
+                <a href = "#!" class="collection-item avatar">
+                  <img src="{% static 'img/dep_ajedrez.png' %}" alt="" class="circle">
+                  <p>First Line <br>
+                    Second Line
+                  </p>
+                  <span class="secondary-content new badge orange" data-badge-caption="">Ajedrez</span>
+                </a>
+                <a href = "#!" class="collection-item avatar">
+                  <img src="{% static 'img/dep_ajedrez.png' %}" alt="" class="circle">
+                  <p>First Line <br>
+                    Second Line
+                  </p>
+                  <span class="secondary-content new badge blue" data-badge-caption="">Natación</span>
+                </a>
+                <a href = "#!" class="collection-item avatar">
+                  <img src="{% static 'img/dep_ajedrez.png' %}" alt="" class="circle">
+                  <p>First Line <br>
+                    Second Line
+                  </p>
+                  <span class="secondary-content new badge pink darken-3" data-badge-caption="">Baile</span>
+                </a>
+              </ul>
+            </div>
+          </div>
+          
+        </div>
+
+
+        <!--**********MI INFORMACIÓN*********-->
+        <div id="mi-info" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Mi Información</h2>
+          </div>
+        </div>
+
+
+
+        <!--**********LISTAR USUARIO*********-->
+        <div id="listar-usuarios" class="container-fluid oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Usuarios</h2>
+          </div>
+        
+            <div class="nav-wrapper teal darken-2">
+            <iframe class="nav-wrapper teal darken-2" style="position: absolute; float:left; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-usuarios-dashboard/" width=1000></iframe>
+            </div>
+
+        </div>
+
+        <!--**********LISTAR EVENTOS*********-->
+        <div id="listar-eventos" class="container-fluid oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Eventos</h2>
+          </div>
+          
+          <div class="teal darken-2">
+            <iframe class="teal darken-2" style="position: absolute; float:left; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-eventos-dashboard/" width=1000></iframe>
+            </div>
+        </div>
+
+        <!--**********DASHBOARD EVENTOS*********-->
+        <div id="dashboard-eventos" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Dashboard Eventos</h2>
+          </div>
+        </div>
+
+        <!--**********LISTAR ACTIVIDADES*********-->
+        <div id="listar-actividades" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Actividades</h2>
+          </div>
+            <div class="teal darken-2">
+            <iframe class="teal darken-2" style="position: absolute; float:left; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-actividades-dashboard/" width=1000></iframe>
+            </div>
+        </div>
+
+        <!--**********CALENDARIO ACTIVIDADES*********-->
+        <div id="calendario-actividades" class="container oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Calendario Actividades</h2>
+          </div>
+        </div>
+
+        <!--**********LISTAR NOTICIAS*********-->
+        <div id="listar-noticias" class="container-fluid oculto">
+          <div class="row justify-content-center">
+            <h2 class="teal-text">Listar Noticias</h2>
+          </div>
+          <div class="nav-wrapper teal darken-2">
+          <iframe class="nav-wrapper teal darken-2" style="position: absolute; float:left; height: 100%; width=100%; border: none" src="https://proyectowww-alejandroo0404.c9users.io/lista-noticia-dashboard/" width=1000></iframe>
+          </div>
+        </div>
+        
+      </div>
+
+    </div>
+
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!--JavaScript para JSGrid-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="{% static 'js/dashboard2.js' %}"></script>
+    
+    <script type="text/javascript">
+      //---------------------------
+      var ejemplos_eventos = [
+        {% for das in lista_dashboard %}
+      	{"Nombre": "{{ das.titulo }}", "Ciudad": "{{ das.ciudad }}", "Lugar": "{{das.lugar}}", "Precio":"{{das.costo}}", "Cantidad de Participantes":"{{das.participante}}", "Fecha de Inicio":"{{das.fechaInicio}}", "Hora de Inicio":"{{das.hora}}", "Encargado":"{{das.encargado}}", "Restricciones":"{{das.restriccion}}"},
+      	{% endfor %}
+      	];
+      	
+      
+      var ejemplos_noticias = [
+          {% for das in lista_noticia_dashboard %}
+        	{"Titulo": "{{ das.titulo }}", "Copete": "{{ das.copete }}", "Fecha": "{{das.fecha}}", "Autor": "{{das.autor}}"},
+        	{% endfor%}
+        ];
+      
+      var ejemplos_usuarios = [
+        {% for das in lista_usuarios_dashboard %}
+          	{"Nombres": "{{ das.nombres }}", "Apellidos": "{{ das.apellidos}}", "Nickname": "{{ das.nickname}}", "Email": "{{ das.email}}", "Genero":"{{ das.genero}}", "Rol":"{{ das.rol}}", "Fecha de Nacimiento":"{{ das.fechaNacimiento}}"},
+        {% endfor%}
+      ];
+      
+      function actualizarClima(jornada)
+      {
+        if(jornada == 'Tarde')
+        {
+          $('#tarjeta-clima').css('background-image','url({% static 'img/dashboard/afternoon.jpg' %})');
+        }
+        
+      	if(jornada == 'Noche')
+      	{
+      		$('#tarjeta-clima').css('background-image','url({% static 'img/dashboard/night2.jpg' %})');
+      	}
+      }
+      
+      
+      function actualizarPagina(rol)
+      {
+        if(rol == 'Administrador')
+        {
+          actualizarMenu('Administrador')
+        }
+        
+      	if(rol == 'Gerente')
+      	{
+      		actualizarMenu('Gerente');
+      	}
+      	
+      	if(rol == 'Operador')
+      	{
+      		actualizarMenu('Operador');
+      	}
+      	
+      	if(rol == 'Participante')
+      	{
+      		actualizarMenu('Participante');
+      		$('#btn-listar-eventos').hide();
+      		$('#btn-inscripcion-eventos, #btn-mis-eventos').css('background-color','#8EC4B8');
+      	}
+      	
+      	if(rol == 'Usuario Público')
+      	{
+      		actualizarMenu('Usuario Público');
+      	}
+      }
+      
+      
+      
+      
+    </script>
+ 
+    <!--****************************************************-->
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+        $(".button-collapse").sideNav({
+          menuWidth: 250,
+          draggable: true,
+        });
+        $('.collapsible').collapsible();
+      });
+
+
+      //ACTUALIZAR LA PÁGINA DE ACUERDO AL ROL DE CADA USUARIO (Administrador, Gerente, Operador, Participante, Usuario Público)
+      actualizarPagina('{{usu_rol.rol}}');
+      actualizarClima('{{horario}}');
+
+    </script>
+  </body>
+</html>

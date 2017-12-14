@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+
+    <title>ABC Eventos Deportivos</title>
+    
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+
+
+  <body id="page-top">
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'deportes:index' %}">
+          <img src="{% static 'img/LogoABC.png' %}" height="60">
+        </a>
+
+        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="{%url 'deportes:dashboard'%}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="{%url 'deportes:logout'%}">Cerrar Sesión</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="#contacto">Contáctenos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- HEADER -->
+    <header class="text-white" style="background-image: url({%static ver_noticia.imagen.url%});">
+      <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="titulo-noticia text-center">{{ ver_noticia.titulo }}</h1>
+        </div>
+        <div class="row justify-content-center">
+            <h5 class="light text-lighten-3 text-center"><mark class="texto-normal descripcion-noticia">{{ ver_noticia.copete }}</mark></h5>
+        </div>   
+      </div>
+    </header>
+
+
+    <!-- NOTICIAS -->
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-2"></div>
+          <div class="col-md-4 ml-auto">
+              <h6><i class="material-icons">date_range</i>  {{ ver_noticia.fecha }}</h6>   
+          </div>
+          <div class="col-md-6 ml-auto">
+              <h6><i class="material-icons">face</i>  {{ ver_noticia.autor }}</h6>   
+          </div>
+        </div>
+
+        <div class="row espacio"><p></p></div>
+
+        <div class="row">
+          <div class="col-lg-8 mx-auto contenido-noticia"> 
+            <p>{{ ver_noticia.cuerpo }}</p>
+          </div>
+        </div>
+
+        <div class="row espacio"><p></p></div>
+        <div class="row espacio"><p></p></div>
+        <div class="row espacio"><p></p></div>
+
+        <div class="row justify-content-center">
+          <a class="btn-outline waves-effect waves-teal hvr-wobble-skew" href="{% url 'deportes:lista_noticias' %}">Ver más noticias</a>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+    <!-- Footer -->
+    <footer id="contacto">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 align-items-center text-white">
+            <div class="row justify-content-center">
+              <img src="{% static 'img/LogoABC.png' %}" height="70px">
+            </div>
+            <p>Somos una empresa encargada de gestionar cualquier tipo de evento deportivo. Contamos con varias sedes en las principales ciudades del país.</p>
+          </div>
+          <div class="col-md-4 text-white">
+            <div class="row justify-content-center">
+              <h3>Contáctenos</h3>
+            </div>
+            <h6><i class="material-icons">location_on</i> Avenida Colombia No. 5-105 Oeste</h6>
+            <h6><i class="material-icons">local_phone</i> 8932939</h6>
+            <h6><i class="material-icons">phone_android</i> 3172930283</h6>
+            <h6><i class="material-icons">email</i> contacto@abceventos.com</h6>
+          </div>
+          <div class="col-md-4 text-white text-center">
+            <h3>Redes Sociales</h3>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/facebook-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/twitter-with-circle.svg' %}" width="35px"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="espacio-footer"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/instagram-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/pinterest-with-circle.svg' %}" width="35px"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="espacio-footer"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/google-plus-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/tumblr-with-circle.svg' %}" width="35px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+  </body>
+
+</html>

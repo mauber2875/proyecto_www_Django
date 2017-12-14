@@ -1,0 +1,608 @@
+/*!
+ * Start Bootstrap - Scrolling Nav (http://startbootstrap.com/template-overviews/scrolling-nav)
+ * Copyright 2013-2017 Start Bootstrap
+ */
+
+ body{
+  font-family: 'Muli', sans-serif;
+ }
+
+
+@media all and (max-width: 600px) {
+  #imagen-login{
+    display:none;
+  }
+
+  .fecha-lista-noticia{
+    text-align: center; 
+  }
+
+  .descripcion-lista-noticia{
+    text-align: center; 
+  }
+}
+
+
+
+.navbar{
+	background-color: rgba(66, 66, 66, 0.4);
+	padding: 0px;
+	padding-left: 4px; 
+}
+
+.nav-item{
+	font-family: 'Dosis', sans-serif;
+	font-size: 1.1em;
+}
+
+.nav-item .active{
+	border-bottom: solid 3px;
+	border-bottom-color: #009688;
+}
+
+header {
+  	padding: 154px 0 100px;
+    background-size: cover; 
+    background-repeat: no-repeat;
+}
+
+.titulo{
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+.texto-normal{
+	font-family: 'Muli', sans-serif;
+}
+header h1{
+ 	font-size: 4em;
+ 	text-shadow: 3px 2px 4px gray;
+ }
+
+@media (min-width: 992px) {
+  header {
+    padding: 156px 0 100px;
+  }
+}
+
+section{
+  padding-top: 0px;
+  padding-bottom: 40px;
+  margin-top: 0px;
+}
+
+section .titulo{
+	font-size: 3em;
+}
+
+hr {
+	background-color: #fff;
+	border-top: 3px dotted #8c8b8b;
+}
+
+section{
+	padding-top: 85px;
+	padding-bottom: 85px;
+}
+
+.row .espacio{
+	height: 80px;
+	padding: 10px;
+}
+
+
+::-moz-selection { 
+  background-color: #80CBC4;
+  color: white;
+}
+::selection{
+  background-color: #80CBC4;
+  color: white;
+}
+
+.espacio{
+  background-color: white;
+}
+
+
+/*PARA HOVER DE LOS POSTS*/
+
+.view {
+  float: left;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 300px;
+}
+
+.view .titulo-evento{  /*Títulos del Evento*/
+  text-shadow: 3px 2px 4px black;
+  font-family: 'Dosis', sans-serif;
+  font-size: 2.2em;
+  padding-top: 110px;
+}
+
+.view .mask{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  text-align:center;
+}
+
+.view .lugar-evento, .view .fecha-evento, .view a{
+  position: relative;
+  opacity: 0;
+  transition: all 0s linear;
+  -webkit-transition: all 0s linear;
+  text-shadow: 3px 2px 4px black;
+}
+
+.view .lugar-evento{
+  font-family: 'Muli', sans-serif;
+  font-size: 1.1em;
+  padding-top: 100px;
+}
+
+.view .fecha-evento{
+  font-family: 'Muli', sans-serif;
+  font-size: 0.8em;
+}
+
+.view a{
+  margin-left: 80px;
+  margin-right: 80px;
+  color:white;
+  font-size: 0.9em;
+  border: 1px solid white;
+}
+.view .mask {
+  opacity: 1;
+  transition: all 0s ease-in-out; 
+  -webkit-transition: all 0s ease-in-out; 
+}
+.view:hover .mask {
+  background-color: rgba(0, 150, 136,0.7);
+} 
+.view:hover, .view:hover .mask h1, .view:hover .lugar-evento, .view:hover .fecha-evento, .view:hover a{
+  opacity: 1;
+  transition-delay: 0s;
+  -webkit-transition-delay: 0s;
+  display:block;
+}
+.view:hover .titulo-evento{
+  opacity: 0;
+}
+
+
+footer{
+  background-color: #155246;
+  padding-top: 20px;
+}
+
+.espacio-footer{
+  height: 10px;
+  background-color: #155246
+}
+
+footer h3{
+  font-family: 'Dosis', sans-serif;
+}
+
+footer i{
+  padding-left: 20px;
+}
+
+
+
+/**********SECCIÓN DE NOTICIAS***********/
+
+.titulo-noticia{
+  text-shadow: 3px 2px 4px gray;
+  font-family: 'Dosis', sans-serif;
+  font-size: 4em;
+  padding:20px;
+  border: solid white 2px;
+  border-spacing: 10px;
+}
+
+.descripcion-noticia{
+  font-size: 0.9em;
+  background-color: rgba(0, 0, 0, 0.3);
+  color:white;
+}
+
+.contenido-noticia{
+  text-align: justify;
+}
+
+.imagen-lista-noticia{
+  width: 200px;
+  height: 200px;
+}
+
+.titulo-lista-noticia{
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.6em;
+  text-align: center; 
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 2px;
+  border-bottom: 0.5px solid gray;
+  padding:7px;
+}
+
+.fecha-lista-noticia{
+  font-size: 0.9em;
+  padding-bottom: 6px;
+}
+
+.descripcion-lista-noticia{
+  font-size: 1.05em;
+  font-style: italic;
+  padding-bottom: 7px;
+}
+
+.noticia{
+  border-bottom: solid 1.5px black;
+  padding-top:17px;
+  padding-bottom: 17px;
+}
+
+#lista-noticias{
+  list-style: none;
+}
+
+
+/**********SECCIÓN DE EVENTOS***********/
+
+.card{
+  margin-bottom: 20px;
+  border:none;
+}
+.card .card-text{
+  padding-top: 0px;
+}
+.dia-evento{
+  font-family: 'Muli', sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.fecha-evento{
+  font-family: 'Dosis', sans-serif;
+  font-size: 3em;
+  text-shadow: 2px 2px 4px gray;
+}
+.nombre-evento{
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-shadow: 2px 2px 4px gray;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5em;
+  letter-spacing: 2px;
+}
+
+.titulo-evento{
+  text-shadow: 3px 2px 4px gray;
+  font-family: 'Dosis', sans-serif;
+  font-size: 5em;
+  padding-bottom:13px;
+}
+
+.countdown{
+  height: 60px;
+  width: 70px;
+  background-color: rgba(0, 0, 0, 0.7);
+  margin-right: 8px;
+  margin-left: 2px;
+  text-align: center;
+}
+
+.countdown h5{
+  font-size: 3em;
+  font-family: 'Dosis', sans-serif;
+}
+
+.countdown h6{
+  font-size: 0.9em;
+  font-family: 'Muli', sans-serif;
+  background-color: rgba(0, 150, 136,1);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.titulo-detalle{
+  font-size: 1.6em;
+  font-family: 'Dosis', sans-serif;
+}
+
+.texto-detalle{
+  font-style: italic;
+  color: gray;
+}
+
+/**********SECCIÓN DE ACTIVIDADES***********/
+
+#tabs-actividades .nav-item{
+  padding: 10px 35px;
+  font-size: 1.2em;
+  font-family: 'Dosis', sans-serif;
+  font-weight: bold;
+  color:#009688;
+}
+
+#tabs-actividades .nav-item:hover{
+  background-color: #009688;
+  color:white;
+}
+
+.tab-pane{
+  background-color: #f5f5f5;
+  margin-bottom: 70px;
+}
+
+.fecha-dia{
+  font-size: 1.7em;
+  font-family: 'Dosis', sans-serif;
+  padding-top: 30px;
+  padding-bottom: 15px;
+  font-weight: bold;
+  color: black;
+}
+.actividad{
+  border-bottom: 0.5px solid gray;
+  padding: 15px 0px;
+}
+
+.horario-actividad{
+  font-family: 'Muli', sans-serif;
+  font-size: 1em;
+  font-weight: bold;
+  border: solid 0.7px black;
+  padding:10px;
+  
+}
+
+.titulo-actividad{
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+}
+
+
+/**********DASHBOARD***********/
+
+#main{
+  padding-left: 250px;
+}
+
+@media only screen and (max-width : 992px) 
+{
+  #main{
+    padding-left: 0;
+    z-index: 20px;
+  }
+}
+
+#encabezado-barra{
+  padding:10px 0px;
+}
+
+#avatar-usuario{
+  height: 80px;
+  padding-top: 7px;
+}
+
+.user-view .background{
+  justify-content: center;
+}
+
+.oculto{
+  display: none;
+}
+
+#slide-out li a{
+  font-size: 1em;
+  padding-left: 15px;
+}
+
+#slide-out i{
+  font-size: 1.8em;
+  margin-right: 17px;
+}
+
+#slide-out .collapsible-header{
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-left: 14px;
+  width: 250px;
+}
+
+#slide-out .collapsible-header:hover{
+  color: black;
+}
+
+#slide-out .collapsible-body:hover{
+  color: black;
+}
+
+#btn-pag-principal:hover{
+  text-decoration: none;
+  color: black;
+}
+
+button{
+  padding-top: 50px;
+}
+
+.ejemplo{
+  width: 400px;
+  height: 400px;
+}
+
+
+/**********BOTONES***********/
+
+.btn, .btn-large {
+	font-family: 'Muli', sans-serif;
+  text-decoration: none;
+  color: #fff;
+  background-color: #26a69a;
+  text-align: center;
+  letter-spacing: .5px;
+  transition: .2s ease-out;
+  cursor: pointer;
+}
+
+.btn:hover, .btn-large:hover {
+  background-color: #2bbbad;
+  color: white;
+}
+
+.btn-floating {
+  display: inline-block;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0;
+  background-color: #26a69a;
+  border-radius: 50%;
+  transition: .3s;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.btn-floating i {
+  width: inherit;
+  display: inline-block;
+  text-align: center;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 40px;
+}
+
+.btn-floating:hover {
+  background-color: #26a69a;
+}
+
+.btn-floating:before {
+  border-radius: 0;
+}
+
+.btn-floating.btn-large {
+  width: 56px;
+  height: 56px;
+}
+
+.btn-floating.btn-large i {
+  line-height: 56px;
+}
+
+button.btn-floating {
+  border: none;
+}
+
+.fixed-action-btn {
+  position: fixed;
+  right: 23px;
+  bottom: 23px;
+  padding-top: 15px;
+  margin-bottom: 0;
+  z-index: 998;
+}
+
+.fixed-action-btn.active ul {
+  visibility: visible;
+}
+
+.fixed-action-btn.horizontal {
+  padding: 0 0 0 15px;
+}
+
+.fixed-action-btn.horizontal ul {
+  text-align: right;
+  right: 64px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  height: 100%;
+  left: auto;
+  width: 500px;
+  /*width 100% only goes to width of button container */
+}
+
+.fixed-action-btn.horizontal ul li {
+  display: inline-block;
+  margin: 15px 15px 0 0;
+}
+
+.btn-large {
+  height: 54px;
+  line-height: 54px;
+}
+
+.btn-large i {
+  font-size: 1.6rem;
+}
+
+.btn-outline{
+  font-family: 'Dosis', sans-serif;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  text-decoration: none; 
+  color: black;
+  border:solid 2px black;
+  text-align: center;
+  letter-spacing: .5px;
+  transition: .2s ease-out;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn-outline:hover{
+  color:black;
+  text-decoration: none;
+}
+
+button{
+  background-color: white;
+}
+
+
+.btn-outline-black{
+  font-family: 'Dosis', sans-serif;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none; 
+  color: white;
+  background-color: black;
+  text-align: center;
+  letter-spacing: .5px;
+  transition: .2s ease-out;
+  cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.btn-outline-black:hover{
+  color:white;
+  text-decoration: none;
+}
+
+
+

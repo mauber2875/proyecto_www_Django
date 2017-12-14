@@ -1,0 +1,296 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Página de eventos deportivos">
+    <meta name="author" content="">
+
+    <title>ABC Eventos Deportivos</title>
+
+    <link rel="icon" href="{% static 'img/icono.png' %}">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css?family=Dosis|Muli|Open+Sans+Condensed:300" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/efectos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <!-- Material Icons Google -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+
+
+
+  <body id="page-top">
+
+    <!-- NAVEGACIÓN -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+      <div class="container">
+
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">
+          <img src="{% static 'img/LogoABC.png' %}" height="60">
+        </a>
+
+        <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="#noticias">Noticias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="#eventos">Eventos</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="{%url 'deportes:dashboard'%}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="{%url 'deportes:logout'%}">Cerrar Sesión</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="#iniciar-sesion">Iniciar Sesión</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger text-white hvr-underline-from-left waves-effect waves-teal" href="#contacto">Contáctenos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="text-white" style="background-image: url({% static 'img/header.jpg' %});">
+      <div class="container">
+        <div class="row justify-content-center animated bounceInUp">
+          <div class="col-md-auto text-center">
+            <img src="{% static 'img/icono.png' %}" height="200">
+          </div>
+          <div class="col-md-auto align-self-center">
+            <h1 class="titulo text-center">ABC EVENTOS DEPORTIVOS</h1>
+            <p class="lead text-center texto-normal">Organizamos todo tipo de eventos deportivos en cualquier lugar del país.<br> Busca uno de tu interés y preinscribete ahora mismo.</p>
+          </div>
+         </div>      
+      </div>
+    </header>
+
+
+
+    <!-- NOTICIAS -->
+    <section id="noticias">
+      <div class="container-fluid">
+
+        <div class="row justify-content-center">
+          <div class="col-3"><hr></div>
+          <div class="col-md-auto">
+            <h1 class="titulo text-center">NOTICIAS</h1>
+          </div>
+          <div class="col-3"><hr></div>
+        </div>
+
+
+        <div class="row espacio"><p></p></div>
+
+        <!-- SLIDER -->
+        <div class="row">
+          <div  class="slider">
+            <ul id="carousel" class="slides">
+              {% for noti in index_noticias %}
+              <li>
+                <img src="{%static noti.imagen.url %}">
+                
+                <div class="caption center-align text-center">
+                  <h3>{{ noti.titulo }}</h3>
+                  <h5 class="light text-lighten-3"><mark class="texto-normal">{{ noti.copete }}</mark></h5>
+                  <a class="btn waves-effect waves-light hvr-wobble-skew" href="{% url 'deportes:noticia'  noti.id %}">Ver más</a>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+        <div class="row espacio"><p></p></div>
+
+        <div class="row justify-content-center">
+          <a class="btn-outline waves-effect waves-teal hvr-wobble-skew" href="{% url 'deportes:lista_noticias' %}">Ver todas las noticias</a>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+
+    <!-- EVENTOS -->
+    <section id="eventos" class="bg-light">
+      <div class="container-fluid">
+        
+        <div class="row justify-content-center">
+          <div class="col-3"><hr></div>
+          <div class="col-md-auto">
+            <h1 class="titulo text-center">EVENTOS</h1>
+          </div>
+          <div class="col-3"><hr></div>
+        </div>
+
+        <div class="row espacio bg-light"><p></p></div>
+        
+        <div class="row">
+          {% for eve in index_eventos %}
+          <div class="col-md-4 text-center view align-self-center text-white" style="background-image: url({%static eve.imagen.url %});">
+              <h3 class="titulo-evento"> {{eve.titulo}}</h3>
+              <div class="mask">
+                <h3 class="lugar-evento">{{eve.lugar}}</h3>
+                <h4 class="fecha-evento">{{eve.fechaInicio}}</h4>
+                <a class="btn-outline waves-effect hvr-wobble-skew" href="{% url 'deportes:evento' eve.id %}">Más Informacion</a>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+
+        <div class="row espacio bg-light"><p></p></div>
+
+        <div class="row justify-content-center">
+          <a class="btn-outline waves-effect waves-teal hvr-wobble-skew" href="/lista_eventos">Ver todos los eventos</a>
+        </div>
+        
+    </section>
+  
+
+    <!-- INICIAR SESIÓN -->
+    {% if user.is_authenticated %}
+    {% else %}
+      <div id="iniciar-sesion" class="container-fluid">
+        <div class="row justify-content-center">
+          <div id = "imagen-login" class="col-5" style="background-image: url({% static 'img/Login.jpg' %}); background-size: cover; background-repeat: no-repeat;">
+          </div>
+          <div class="col-7" style="padding-top: 30px">
+            <div class="row justify-content-center">
+              <div class="col-3"><hr></div>
+                <h1 class="titulo text-center">INICIAR SESIÓN</h1>
+                <div class="col-3"><hr></div>
+            </div>
+              
+            <div class="row justify-content-center">
+              <div class="espacio" style="background-color: white"></div>
+              <form style="padding-top: 23px; padding-bottom: 23px;" method="POST">
+                {% csrf_token %}
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="icon_prefix" type="text" class="validate" required="required" name="username">
+                    <label for="icon_prefix">Usuario</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <input id="icon_telephone" type="password" class="validate" required="required" name="password">
+                    <label for="icon_telephone">Contraseña</label>
+                    
+                  </div>
+                  {% if mensaje %}
+                        {{ mensaje }}
+                    {% endif %}
+
+                  <div class="row justify-content-center text-center" style="padding-bottom: 12px;">
+              <button class="btn-outline waves-effect waves-teal hvr-wobble-skew" type="submit" name="action" >Ingresar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+
+
+              </form>
+            </div>  
+
+            
+
+            <div class="row justify-content-center">
+              <div class="espacio"></div>
+              <a href="/crear_cuenta"><p>No tienes una cuenta? Registrate</p></a>
+            </div>
+              
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    <!--</section> -->
+
+
+
+    <!-- Footer -->
+    <footer id="contacto">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 align-items-center text-white">
+            <div class="row justify-content-center">
+              <img src="{% static 'img/LogoABC.png' %}" height="70px">
+            </div>
+            <p>Somos una empresa encargada de gestionar cualquier tipo de evento deportivo. Contamos con varias sedes en las principales ciudades del país.</p>
+          </div>
+          <div class="col-md-4 text-white">
+            <div class="row justify-content-center">
+              <h3>Contáctenos</h3>
+            </div>
+            <h6><i class="material-icons">location_on</i> Avenida Colombia No. 5-105 Oeste</h6>
+            <h6><i class="material-icons">local_phone</i> 8932939</h6>
+            <h6><i class="material-icons">phone_android</i> 3172930283</h6>
+            <h6><i class="material-icons">email</i> contacto@abceventos.com</h6>
+          </div>
+          <div class="col-md-4 text-white text-center">
+            <h3>Redes Sociales</h3>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/facebook-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/twitter-with-circle.svg' %}" width="35px"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="espacio-footer"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/instagram-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/pinterest-with-circle.svg' %}" width="35px"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="espacio-footer"></div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/google-plus-with-circle.svg' %}" width="35px"></div>
+              <div class="col-auto"><img class="social-icon" src="{% static 'svg/tumblr-with-circle.svg' %}" width="35px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <!-- Custom JavaScript for this theme -->
+    <script src="{% static 'js/scrolling-nav.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+          $('.slider').slider({full_width: true});
+        });
+    </script>
+
+
+  </body>
+
+</html>
